@@ -1,41 +1,67 @@
 # Aditya Bisht
 
-Student at Northeastern University. I build tools for AI agents: browsers they can drive, recorders that show what they actually changed, and the infrastructure underneath. I also work on applied machine learning and data analysis.
+Software engineer and student at Northeastern University. I build infrastructure for AI agents: how they pay for things, how they are authorized, how they drive a browser, how they understand code, and how a human can verify what they actually did.
 
 Portfolio: [aditya292248.github.io](https://aditya292248.github.io/)
 
-## What I am working on
+## Allowance
 
-**[Stepglass](https://github.com/Aditya292248/stepGlass)** - TypeScript
-An open-source, self-hosted tool that records what an AI agent did, verifies what actually changed in the systems it touched, and checks the result against policy. Built in public, one reviewable PR at a time.
+**[Allowance](https://useallowance.com)** - spending wallets for AI agents. Kotlin, TypeScript
 
-**[openBrowser](https://github.com/Aditya292248/openBrowser)** - Rust
-A CLI for driving one persistent Chrome tab. Each command is a short-lived process; a local daemon keeps the browser session alive. Structured JSON output for use by agents and scripts.
+I work across the Allowance product, with most of my work on the Android app, the agent wallet, and the MCP server agents use to make purchases.
 
-**[codingAgent](https://github.com/Aditya292248/codingAgent)** - TypeScript
-A VS Code coding assistant backed by a local repository graph. Currently at the foundation stage: package boundaries, shared contracts and build tooling.
+- **Android app:** built the native Kotlin / Jetpack Compose client to parity with iOS. That covered allowances, approval flows that require device authentication, connected-agent onboarding, deep links, push notifications through Firebase Cloud Messaging, and chat with the conversation engine.
+- **Agent Wallet:** one-time and scoped virtual cards for agent purchases, with readiness gates, a fail-closed Stripe Issuing webhook, and secure reveal links so card details never pass through the agent.
+- **MCP and evals:** tools on the Allowance MCP server, an eval runner built on the Codex SDK, and an admin control page for running MCP evals.
+- **Browser agents:** checkout workers built on Browser Use that complete shopping tasks while the user reviews and approves them.
+
+Public: [allowance-mcp-public](https://github.com/useallowance/allowance-mcp-public), [allowance-skill](https://github.com/useallowance/allowance-skill)
+
+## Projects
+
+### [Stepglass](https://github.com/Aditya292248/stepGlass)
+TypeScript, open source, Apache-2.0
+
+A self-hosted tool that records what an AI agent did, verifies what actually changed in the systems it touched, and checks the result against policy. Most agent traces show what the agent said or what a tool returned. Stepglass records before-and-after evidence for each change, so a reviewer who doesn't read code can see what the agent tried to do, what changed, what went wrong, and which recorded step proves it. It is built in public, one reviewable PR at a time.
+
+### [openBrowser](https://github.com/Aditya292248/openBrowser)
+Rust
+
+A CLI that drives a single persistent Chrome tab. Each command runs as a short-lived process. A local daemon keeps the browser session alive between commands until `close`, so agents and shell scripts can work with one real tab step by step. It gives structured JSON output, reports oversized snapshot responses clearly, and is tested end to end against a real Chrome session.
+
+### Gatepoint
+TypeScript, private
+
+A trust gateway that sits between AI agents and the tools they call. Each agent gets an Ed25519 identity and a gateway-issued certificate and signs every request. The gateway checks each call against tenant policy before letting it through. With Ahaan Kallat, I built:
+
+- tenant API key authentication, input validation, key revocation for compromised keys, and audit logging
+- the policy engine, including a system policy layer for internal routes
+- an LLM-powered policy generator, and a guardrail evaluation system with AI-generated test scenarios
+- the web dashboard for agent management and intent history, and reference ecommerce and IT agents that run through the gateway
+
+### [Neocortex](https://github.com/rusheelsharma/neocortex)
+TypeScript
+
+Turns a GitHub repository into a knowledge base you can query in natural language. It uses AST parsing, vector embeddings, and dependency-graph expansion to return only the code context an LLM needs. My contributions:
+
+- vector embeddings and semantic search
+- semantic compression through program slicing, to fit token budgets
+- line, variable, and file extraction commands, with query-classifier support
+- the presentation UI
 
 ## Open source contributions
 
 - [open-instinct](https://github.com/mariagorskikh/open-instinct): honor `Retry-After` for webhook forwarding in the gateway; fix cron name validation in the CLI.
 
-## Machine learning and data projects
+## Machine learning
 
-| Project | Summary |
-| --- | --- |
-| [ImageDoctor](https://github.com/Aditya292248/imageDoctor) | Full-reference image quality assessment with a fine-tuned ViT-Base on KADID-10k; about 70% lower GPU memory through selective freezing and gradient accumulation. |
-| [Loan Default Prediction](https://github.com/Aditya292248/loan-default-prediction) | Default risk on 1.35M Lending Club loans using only application-time features. XGBoost at 0.72 AUC-ROC with SHAP interpretability. |
-| [Marketing A/B Test Analysis](https://github.com/Aditya292248/marketing-ab-test-analysis) | 588K-user ad experiment: 43% conversion lift (p < 0.001), dose-response analysis, and a Simpson's paradox check. |
-| [Nifty 50 Investment Dashboard](https://github.com/Aditya292248/Nifty-50-Investment-Dashboard) | Streamlit app for analyzing Nifty 50 stocks and building equal-weight portfolios. |
-| [Brain Tumor Image Segmentation](https://github.com/Aditya292248/Brain-Tumor-Image-Segmentation) | Medical image segmentation of brain tumors. |
-
-## Other projects
-
-- [Agent Ledger](https://github.com/Aditya292248/agentLedger) - payment engine with approval workflows and n8n integration (TypeScript, PostgreSQL).
-- [finreview](https://github.com/Aditya292248/finreview) - financial inclusion platform (React, Express, TypeScript).
+- [ImageDoctor](https://github.com/Aditya292248/imageDoctor): full-reference image quality assessment with a fine-tuned ViT-Base on KADID-10k, using about 70% less GPU memory through selective freezing and gradient accumulation.
+- [Loan Default Prediction](https://github.com/Aditya292248/loan-default-prediction): XGBoost at 0.72 AUC-ROC on 1.35M Lending Club loans, using only application-time features, with SHAP interpretability.
+- [Marketing A/B Test Analysis](https://github.com/Aditya292248/marketing-ab-test-analysis): a 588K-user ad experiment showing a 43% conversion lift (p < 0.001), with dose-response analysis.
 
 ## Tools and languages
 
-- **Languages:** Python, TypeScript, Rust, Java, Racket, SQL
-- **AI and data:** PyTorch, Vision Transformers, XGBoost, scikit-learn, SHAP, pandas, Streamlit
-- **Systems and web:** Chrome DevTools Protocol, Node.js, React, Vite, Express, PostgreSQL, Docker
+- **Languages:** TypeScript, Python, Kotlin, Rust, Java, SQL
+- **Agents and AI:** MCP, Browser Use, Chrome DevTools Protocol, OpenAI and Codex SDKs, embeddings, PyTorch, XGBoost
+- **Mobile and web:** Jetpack Compose, React, Node.js, Express
+- **Infrastructure:** PostgreSQL, Prisma, Stripe Issuing, Firebase, Docker
