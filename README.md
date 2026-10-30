@@ -15,8 +15,6 @@ I work across the Allowance product, with most of my work on the Android app, th
 - **MCP and evals:** tools on the Allowance MCP server, an eval runner built on the Codex SDK, and an admin control page for running MCP evals.
 - **Browser agents:** checkout workers built on Browser Use that complete shopping tasks while the user reviews and approves them.
 
-Public: [allowance-mcp-public](https://github.com/useallowance/allowance-mcp-public), [allowance-skill](https://github.com/useallowance/allowance-skill)
-
 ## Projects
 
 ### [Stepglass](https://github.com/Aditya292248/stepGlass)
@@ -51,7 +49,7 @@ Turns a GitHub repository into a knowledge base you can query in natural languag
 
 ## Open source contributions
 
-- [open-instinct](https://github.com/mariagorskikh/open-instinct): honor `Retry-After` for webhook forwarding in the gateway; fix cron name validation in the CLI.
+- [open-instinct](https://github.com/mariagorskikh/open-instinct)
 
 ## Machine learning
 
